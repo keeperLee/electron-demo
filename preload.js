@@ -9,7 +9,7 @@
 // })
 
 
-//渲染进程向主进程通信（双向）
+//渲染器进程向主进程通信（双向）
 // const { contextBridge, ipcRenderer } = require('electron')
 //
 // contextBridge.exposeInMainWorld('versions', {
@@ -21,11 +21,19 @@
 // })
 
 
-//渲染进程向主进程通信（单向）
+//渲染器进程向主进程通信（单向）
+// const { contextBridge, ipcRenderer } = require('electron')
+//
+// contextBridge.exposeInMainWorld('electronAPI', {
+//     setTitle: (title) => ipcRenderer.send('set-title', title)
+// })
+
+
+//渲染器进程向主进程通信（双向）
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electronAPI', {
-    setTitle: (title) => ipcRenderer.send('set-title', title)
+    openFile: () => ipcRenderer.invoke('dialog:openFile')
 })
 
 

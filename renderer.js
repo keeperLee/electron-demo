@@ -8,11 +8,21 @@
 // }
 // func()
 
-//渲染进程向主进程通信（单向）
-const setButton = document.getElementById('btn')
-const titleInput = document.getElementById('title')
-setButton.addEventListener('click', () => {
-    const title = titleInput.value
-    window.electronAPI.setTitle(title)
-});
+//渲染器进程向主进程通信（单向）
+// const setButton = document.getElementById('btn')
+// const titleInput = document.getElementById('title')
+// setButton.addEventListener('click', () => {
+//     const title = titleInput.value
+//     window.electronAPI.setTitle(title)
+// });
+
+
+//渲染器进程向主进程通信（双向）
+const btn = document.getElementById('btn')
+const filePathElement = document.getElementById('filePath')
+
+btn.addEventListener('click', async () => {
+    const filePath = await window.electronAPI.openFile()
+    filePathElement.innerText = filePath
+})
 
