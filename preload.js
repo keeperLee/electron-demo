@@ -30,11 +30,16 @@
 
 
 //渲染器进程向主进程通信（双向）
+// const { contextBridge, ipcRenderer } = require('electron')
+//
+// contextBridge.exposeInMainWorld('electronAPI', {
+//     openFile: () => ipcRenderer.invoke('dialog:openFile')
+// })
+
+//主进程向渲染进程通信
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electronAPI', {
-    openFile: () => ipcRenderer.invoke('dialog:openFile')
+    onUpdateCounter: (callback) => ipcRenderer.on('update-counter', callback)
 })
-
-
 

@@ -18,11 +18,19 @@
 
 
 //渲染器进程向主进程通信（双向）
-const btn = document.getElementById('btn')
-const filePathElement = document.getElementById('filePath')
+// const btn = document.getElementById('btn')
+// const filePathElement = document.getElementById('filePath')
+//
+// btn.addEventListener('click', async () => {
+//     const filePath = await window.electronAPI.openFile()
+//     filePathElement.innerText = filePath
+// })
 
-btn.addEventListener('click', async () => {
-    const filePath = await window.electronAPI.openFile()
-    filePathElement.innerText = filePath
+//主进程向渲染器进程通信
+const counter = document.getElementById('counter')
+
+window.electronAPI.onUpdateCounter((_event, value) => {
+    const oldValue = Number(counter.innerText)
+    const newValue = oldValue + value
+    counter.innerText = newValue
 })
-
